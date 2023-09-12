@@ -15,16 +15,17 @@ class SyncWorker(
     private val localDatabase: DataRepository
 ) : Worker(context, workerParams) {
 
-    companion object{
+    companion object {
         const val TAG = "SyncWorker"
     }
+
     override fun doWork(): Result {
-       Log.e(TAG,"Yes ......")
+        Log.e(TAG, "Yes ......")
 
         val s = apiService.getData()
             .map {
                 it.let {
-                    localDatabase.insertAllDashboard(it).blockingAwait()
+                    localDatabase.insertAllDashboard(it.result ?: emptyList()).blockingAwait()
                 }
                 it
             }.subscribe({
@@ -39,13 +40,12 @@ class SyncWorker(
     }
 
 
-
     class Factory @Inject constructor(
-        private val userRepository: Provider<Routes> ,// <-- Add your providers parameters
+        private val userRepository: Provider<Routes>,// <-- Add your providers parameters
         private val localDataBase: Provider<DataRepository> // <-- Add your providers parameters
     ) : IWorkerFactory<SyncWorker> {
         override fun create(appContext: Context, params: WorkerParameters): SyncWorker {
-            return SyncWorker(appContext, params, userRepository.get(),localDataBase.get())
+            return SyncWorker(appContext, params, userRepository.get(), localDataBase.get())
         }
     }
 

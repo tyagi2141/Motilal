@@ -66,10 +66,9 @@ open class NetworkModule {
     fun provideHttpLoggingInterceptor(app: Application): Interceptor {
         val loggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
-                Log.e("OKHttp","${message}")
+                Log.e("OKHttp logging","${message}")
             }
         })
-
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         loggingInterceptor.redactHeader("Authorization")
         return loggingInterceptor

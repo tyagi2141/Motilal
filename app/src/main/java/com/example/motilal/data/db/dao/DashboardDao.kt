@@ -2,6 +2,7 @@ package com.example.motilal.data.db.dao
 
 import androidx.room.*
 import com.example.motilal.model.DashboardResponse
+import com.example.motilal.model.Result
 import io.reactivex.Completable
 import io.reactivex.Observable
 
@@ -10,14 +11,14 @@ import io.reactivex.Observable
 interface DashboardDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(dashboardResponse: List<DashboardResponse>): Completable
+    fun insertAll(dashboardResponse: List<Result>): Completable
 
     @TypeConverter
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(dashboardResponse: DashboardResponse): Completable
+    fun insert(dashboardResponse: Result): Completable
 
-    @Query("SELECT * FROM DashboardResponse")
-    fun getAll(): Observable<List<DashboardResponse>>
+    @Query("SELECT * FROM Result")
+    fun getAll(): Observable<List<Result>>
 
 
 }

@@ -27,6 +27,6 @@
             app:destination="@id/FirstFragment" />
         <argument
             android:name="dasboard_result"
-            app:argType="com.example.motilal.model.DashboardResponse" />
+            app:argType="com.example.motilal.model.Result" />
     </fragment>
 </navigation>

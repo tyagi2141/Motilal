@@ -24,16 +24,13 @@ class AppApplication :DaggerApplication()  {
     @Inject
     lateinit var workerInjectorFactory: WorkerInjectorFactory
 
-    @Inject
+  /*  @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-
+*/
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return component
     }
-
-
-
 
     override fun onCreate() {
 
@@ -41,7 +38,6 @@ class AppApplication :DaggerApplication()  {
         component = DaggerAppComponent.factory().create(AppModule(this))
         component.inject(this)
         super.onCreate()
-
         configureWorkerWithDagger()
     }
 

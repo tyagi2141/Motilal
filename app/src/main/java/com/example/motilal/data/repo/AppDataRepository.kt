@@ -5,6 +5,7 @@ import android.app.Application
 import com.example.motilal.data.db.AppDatabase
 import com.example.motilal.data.network.Routes
 import com.example.motilal.model.DashboardResponse
+import com.example.motilal.model.Result
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -16,17 +17,18 @@ class AppDataRepository(
     private var apiService: Routes,
     private var localDatabase: AppDatabase
 ) : DataRepository {
-    override fun getData(): Single<List<DashboardResponse>> {
+    override fun getData(): Single<DashboardResponse> {
 
         return apiService.getData().subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
     }
 
-    override fun insertAllDashboard(dashboardResponse: List<DashboardResponse>): Completable {
+
+    override fun insertAllDashboard(dashboardResponse: List<Result>): Completable {
         return localDatabase.dashboardDao().insertAll(dashboardResponse)
     }
 
-    override fun getAllDashBoard(): Observable<List<DashboardResponse>> {
+    override fun getAllDashBoard(): Observable<List<Result>> {
         return localDatabase.dashboardDao().getAll()
     }
 

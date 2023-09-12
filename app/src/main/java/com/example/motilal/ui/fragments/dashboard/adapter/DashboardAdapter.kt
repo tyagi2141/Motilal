@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.motilal.databinding.DashboardItemBinding
-import com.example.motilal.model.DashboardResponse
+import com.example.motilal.model.Result
 
 class DashboardAdapter(private val context: Context) :
     RecyclerView.Adapter<DashboardAdapter.dashboardViewHolder>() {
@@ -17,17 +17,17 @@ class DashboardAdapter(private val context: Context) :
 
     var adapterCallback: DbAdapterCallback? = null
 
-    private val differCallback = object : DiffUtil.ItemCallback<DashboardResponse>() {
+    private val differCallback = object : DiffUtil.ItemCallback<Result>() {
         override fun areItemsTheSame(
-            oldItem: DashboardResponse,
-            newItem: DashboardResponse
+            oldItem: Result,
+            newItem: Result
         ): Boolean {
             return oldItem.author == newItem.author
         }
 
         override fun areContentsTheSame(
-            oldItem: DashboardResponse,
-            newItem: DashboardResponse
+            oldItem: Result,
+            newItem: Result
         ): Boolean {
             return oldItem == newItem
         }
@@ -60,7 +60,7 @@ class DashboardAdapter(private val context: Context) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
 
-        fun bind(dashboardData: DashboardResponse?, itemView: View) {
+        fun bind(dashboardData: Result?, itemView: View) {
 
             dashboardData?.let {
                 itemBinding.tvAuther.text = "Author : ${it.author}"
@@ -78,7 +78,7 @@ class DashboardAdapter(private val context: Context) :
 
     interface DbAdapterCallback {
 
-        fun onTab(dashboardData: DashboardResponse?)
+        fun onTab(dashboardData: Result?)
 
     }
 

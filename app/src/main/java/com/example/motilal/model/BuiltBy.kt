@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class BuiltBy (
-    @SerializedName("href") val href : String,
-    @SerializedName("avatar") val avatar : String,
-    @SerializedName("username") val username : String
+data class BuiltBy(
+    @SerializedName("href") var href: String? = null,
+    @SerializedName("avatar") var avatar: String? = null,
+    @SerializedName("username") var username: String? = null
 ) : Parcelable

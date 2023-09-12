@@ -4,11 +4,12 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.motilal.data.repo.DataRepository
-import com.example.motilal.model.Result
+import com.example.motilal.model.DashboardResponse
 import com.example.motilal.ui.base.BaseViewModel
 import com.example.motilal.util.CommonResponseModel
 import com.example.motilal.util.NetworkUtils
 import javax.inject.Inject
+
 
 class DashboardViewModel @Inject constructor(
     private var dataRepository: DataRepository
@@ -16,7 +17,7 @@ class DashboardViewModel @Inject constructor(
 
     private val TAG = "DashboardViewModel"
 
-    val dashboardResponseLiveData: MutableLiveData<CommonResponseModel<Result>> =
+    val dashboardResponseLiveData: MutableLiveData<CommonResponseModel<DashboardResponse>> =
         MutableLiveData()
 
     fun getData(context: Context) {
@@ -32,24 +33,25 @@ class DashboardViewModel @Inject constructor(
 
         bag.add(dataRepository.getData()
             .map {
-                it?.let {
-                    dataRepository.insertAllDashboard(it).blockingAwait()
+                Log.e("jhbhjbhjb", "$it")
+                it.let {
+                    dataRepository.insertAllDashboard(it.result ?: emptyList()).blockingAwait()
                 }
+
                 it
             }.subscribe({
                 Log.d(TAG, "ResultFromServer-success:$it")
                 dashboardResponseLiveData.postValue(
                     CommonResponseModel(
-                        Result(it),
+                        it,
                         null,
                         200,
                         true
                     )
                 )
-
                 loadingDataLiveData.postValue(false)
             }, {
-                Log.d("$it", "ResultFromServer-error")
+                Log.d("$TAG : $it", "ResultFromServer-error")
                 dashboardResponseLiveData.postValue(
                     CommonResponseModel(
                         null,
@@ -62,14 +64,14 @@ class DashboardViewModel @Inject constructor(
     }
 
 
-     fun dashboardFromDatabase() {
+    fun dashboardFromDatabase() {
         bag.add(
             dataRepository.getAllDashBoard()
                 .subscribe({
                     Log.d(TAG, "ResultFromDatabase-success:$it")
                     dashboardResponseLiveData.postValue(
                         CommonResponseModel(
-                            Result(it),
+                            DashboardResponse(it),
                             null,
                             200,
                             true

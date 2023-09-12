@@ -7,12 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.motilal.data.db.dao.DashboardDao
 import com.example.motilal.model.DashboardResponse
+import com.example.motilal.model.Result
 import com.sunking.lapo.notification.LocalData.Dao.BuiltByConverter
 
 
 @Database(
     entities = [
-        DashboardResponse::class
+        Result::class
     ],
     version = 1
 )

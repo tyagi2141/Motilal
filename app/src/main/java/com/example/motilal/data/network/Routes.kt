@@ -14,11 +14,9 @@ import retrofit2.http.Query
 
 interface Routes {
 
-
-    @GET("repositories")
-    fun getData(
-        @Query("since") since: String = "daily"
-    ): Single<List<DashboardResponse>>
+    //https://mocki.io/v1/7fcbfe05-ae35-4d38-a502-a2d75211a6f7
+    @GET("/v1/7fcbfe05-ae35-4d38-a502-a2d75211a6f7")
+    fun getData(): Single<DashboardResponse>
 
 
 }
